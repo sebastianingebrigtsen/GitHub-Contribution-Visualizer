@@ -1,16 +1,48 @@
+//Grid
 const grid = document.getElementById('grid');
 
-// Generer 7x52 ruter
-for (let i = 0; i < 7 * 52; i++) {
-  const cell = document.createElement('div');
-  cell.classList.add('cell');
+function generateGrid(year) {
+  grid.innerHTML = ''; // Tøm eksisterende grid
 
-  // Legg til klikkhendelse for å veksle status
-  cell.addEventListener('click', () => {
-    cell.classList.toggle('active');
-  });
+  const startDate = new Date(year, 0, 1); // 1. januar
+  const endDate = new Date(year, 11, 31); // 31. desember
+  const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1; // Antall dager i året
+  const startDay = startDate.getDay(); // Ukedagen for 1. januar (0 = Søndag, 1 = Mandag, ...)
 
-  grid.appendChild(cell);
+  // Lag grid (53 kolonner, 7 rader)
+  for (let day = 0; day < 7; day++) {
+    // Iterer over dagene i uken
+    for (let week = 0; week < 53; week++) {
+      // Iterer over ukene
+      const currentIndex = week * 7 + day - startDay; // Juster indeksen basert på startdagen
+      const currentDate = new Date(year, 0, currentIndex + 1); // Beregn dato basert på årets start
+
+      // Sjekk om vi er innenfor årets dager
+      if (currentDate >= startDate && currentDate <= endDate) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+
+        // Legg til dato som attributt for senere bruk
+        cell.dataset.date = currentDate.toISOString().split('T')[0];
+
+        // Legg til klikkhendelse for testing
+        cell.addEventListener('click', () => {
+          console.log(`Clicked date: ${cell.dataset.date}`);
+        });
+
+        grid.appendChild(cell);
+      } else {
+        // Tom celle for uker utenfor årets dager
+        const emptyCell = document.createElement('div');
+        emptyCell.classList.add('empty');
+        grid.appendChild(emptyCell);
+      }
+    }
+  }
+
+  // Sett grid-layout basert på riktig rekkefølge
+  grid.style.gridTemplateRows = `repeat(7, 15px)`;
+  grid.style.gridTemplateColumns = `repeat(53, 15px)`;
 }
 
 document.getElementById('generate-script').addEventListener('click', () => {
@@ -62,3 +94,5 @@ grid.addEventListener('click', (e) => {
     e.target.classList.toggle('active');
   }
 });
+
+generateGrid(2006); // Bytt ut året for testing
