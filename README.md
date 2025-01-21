@@ -1,1 +1,0 @@
-# GitHub Contribution Visualizer
