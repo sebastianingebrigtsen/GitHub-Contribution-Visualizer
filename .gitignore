@@ -1,0 +1,6 @@
+# Ignorer systemfiler
+.DS_Store
+Thumbs.db
+
+# Ignorer Node-modules hvis du legger til npm senere
+node_modules/
