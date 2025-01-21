@@ -23,6 +23,7 @@ function generateGrid(year) {
         cell.classList.add('cell');
 
         // Legg til dato som attributt for senere bruk
+        const currentDate = new Date(year, 0, currentIndex + 1, 12);
         cell.dataset.date = currentDate.toISOString().split('T')[0];
 
         // Legg til klikkhendelse for testing
@@ -95,4 +96,4 @@ grid.addEventListener('click', (e) => {
   }
 });
 
-generateGrid(2006); // Bytt ut året for testing
+generateGrid(2025); // Bytt ut året for testing
