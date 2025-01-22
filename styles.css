@@ -1,136 +1,154 @@
 :root {
-  --background-color: #0d1117;
-  --text-color: #ffffff;
-  --primary-color: #46d353;
-  --secondary-color: #161b22;
-  --tertiary-color: #262b36;
-  --border-color: #3d444d;
-  --hover-color: #216e39;
-  --header-color: #010409;
+  /* Definerer globale variabler for farger som kan gjenbrukes */
+  --background-color: #0d1117; /* Bakgrunnsfarge for hele siden */
+  --text-color: #ffffff; /* Tekstfarge */
+  --primary-color: #46d353; /* Primærfarge for aktive elementer */
+  --secondary-color: #161b22; /* Sekundærfarge for bakgrunner og mindre viktige elementer */
+  --tertiary-color: #262b36; /* Tertiærfarge for hjelpeelementer */
+  --border-color: #3d444d; /* Farge for rammer */
+  --hover-color: #216e39; /* Farge for hover-effekter */
+  --header-color: #010409; /* Bakgrunnsfarge for header */
 }
 
 /* Kropp og layout */
 body {
-  font-family: Segoe UI, Roboto, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  /* Standardinnstillinger for tekst og bakgrunn */
+  font-family: Segoe UI, Roboto, sans-serif; /* Moderne skrifttype */
+  margin: 0; /* Fjern standard margin */
+  padding: 0; /* Fjern standard padding */
+  background-color: var(--background-color); /* Bruker definert bakgrunnsfarge */
+  color: var(--text-color); /* Bruker definert tekstfarge */
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: var(--header-color);
-  color: var(--text-color);
+  /* Header-oppsett */
+  display: flex; /* Bruker flexbox for layout */
+  justify-content: space-between; /* Fordeler innhold jevnt */
+  align-items: center; /* Sentrerer innhold vertikalt */
+  padding: 10px 20px; /* Gir plass rundt innholdet */
+  background-color: var(--header-color); /* Bakgrunnsfarge for header */
+  color: var(--text-color); /* Tekstfarge i header */
 }
 
 header h1 {
-  font-size: 24px;
+  font-size: 24px; /* Størrelse på overskriften */
 }
 
 main {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
+  /* Hovedinnholdet */
+  max-width: 1200px; /* Maksimal bredde for innholdet */
+  margin: 20px auto; /* Sentraliserer innholdet */
+  padding: 20px; /* Plass rundt innholdet */
 }
 
 /* Grid container */
 #grid-container {
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
+  /* Container for gridet */
+  margin: 20px auto; /* Sentraliserer gridet */
+  display: flex; /* Bruker flexbox for layout */
+  justify-content: center; /* Sentraliserer innholdet horisontalt */
 }
 
 #grid {
-  display: grid;
-  grid-template-rows: repeat(7, 20px);
-  gap: 2px;
-  width: fit-content;
-  user-select: none;
-  padding: 10px;
-  transition: transform 0.3s ease; /* Smooth overgang for skalering */
+  /* Definisjon av grid-layout */
+  display: grid; /* Aktiverer grid-layout */
+  grid-template-rows: repeat(7, 20px); /* Syv rader med lik høyde */
+  gap: 2px; /* Avstand mellom cellene */
+  width: fit-content; /* Justerer bredden etter innholdet */
+  user-select: none; /* Hindrer tekstmarkering */
+  padding: 10px; /* Plass rundt gridet */
+  transition: transform 0.3s ease; /* Glatt overgang for skalering */
 }
+
 /* Skalering for ulike skjermstørrelser */
 @media (max-width: 1200px) {
   #grid {
-    transform: scale(0.8); /* Reduser størrelse til 90% */
+    transform: scale(0.8); /* Reduserer størrelse til 80% */
   }
 }
 
 @media (max-width: 992px) {
   #grid {
-    transform: scale(0.6); /* Reduser størrelse til 80% */
+    transform: scale(0.6); /* Reduserer størrelse til 60% */
   }
 }
 
 @media (max-width: 768px) {
   #grid {
-    transform: scale(0.5); /* Reduser størrelse til 70% */
+    transform: scale(0.5); /* Reduserer størrelse til 50% */
   }
 }
 
 /* Cell styles */
 .cell {
-  width: 20px;
-  height: 20px;
-  background-color: var(--secondary-color);
-  border-radius: 3px;
-  cursor: pointer;
+  /* Standard stil for cellene i gridet */
+  width: 20px; /* Bredde på cellen */
+  height: 20px; /* Høyde på cellen */
+  background-color: var(--secondary-color); /* Bakgrunnsfarge for inaktive celler */
+  border-radius: 3px; /* Runder hjørnene litt */
+  cursor: pointer; /* Endrer markøren til en peker ved hover */
 }
 
 .cell.active {
-  background-color: var(--primary-color);
+  /* Stil for aktive celler */
+  background-color: var(--primary-color); /* Primærfarge for aktive celler */
 }
 
 .cell:hover {
-  background-color: var(--hover-color);
+  /* Hover-effekt for celler */
+  background-color: var(--hover-color); /* Endrer bakgrunnsfarge ved hover */
 }
 
 .empty {
-  background-color: transparent;
-  pointer-events: none;
+  /* Stil for tomme celler */
+  background-color: transparent; /* Gjør bakgrunnen gjennomsiktig */
+  pointer-events: none; /* Hindrer interaksjon med tomme celler */
 }
+
 /* Controls */
 .controls {
-  display: flex;
-  justify-content: center; /* Sentrer knappene */
+  /* Oppsett for kontrollknapper */
+  display: flex; /* Bruker flexbox for layout */
+  justify-content: center; /* Sentraliserer knappene */
   gap: 10px; /* Avstand mellom knappene */
-  margin: 20px 0;
+  margin: 20px 0; /* Plass over og under kontrollene */
 }
+
 section.controls button,
 #year-selector {
-  padding: 10px 20px; /* Økt bredde på knappene */
-  font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  background-color: var(--tertiary-color);
-  color: var(--text-color);
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth overgang */
+  /* Stil for knapper og dropdown-meny */
+  padding: 10px 20px; /* Gir knappene større klikkflate */
+  font-size: 16px; /* Skriftstørrelse for tekst */
+  border-radius: 4px; /* Runder hjørnene */
+  border: 1px solid var(--border-color); /* Rammefarge */
+  background-color: var(--tertiary-color); /* Bakgrunnsfarge */
+  color: var(--text-color); /* Tekstfarge */
+  cursor: pointer; /* Endrer markøren til en peker */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Glatt overgang for hover-effekter */
 }
 
 section.controls button:hover {
-  background-color: var(--hover-color);
+  /* Hover-effekt for knapper */
+  background-color: var(--hover-color); /* Endrer bakgrunnsfarge ved hover */
 }
 
 section.controls button:active {
-  background-color: var(--primary-color);
+  /* Stil for aktive knapper */
+  background-color: var(--primary-color); /* Endrer bakgrunnsfarge ved klikk */
 }
 
 /* Script output */
 #script-output {
-  width: 100%;
-  max-height: 200px; /* Begrens høyden, så scrolling aktiveres */
-  padding: 10px;
-  font-family: 'Courier New', Courier, monospace;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  overflow-y: scroll; /* Aktiver vertikal scrolling */
+  /* Stil for tekstboksen som viser scriptet */
+  width: 100%; /* Full bredde */
+  max-height: 200px; /* Begrens høyden, aktiverer scrolling ved behov */
+  padding: 10px; /* Plass rundt teksten */
+  font-family: 'Courier New', Courier, monospace; /* Monospace-skrift for script */
+  border: 1px solid var(--border-color); /* Rammefarge */
+  border-radius: 4px; /* Runder hjørnene */
+  background-color: var(--background-color); /* Bakgrunnsfarge */
+  color: var(--text-color); /* Tekstfarge */
+  overflow-y: scroll; /* Aktiverer vertikal scrolling */
 }
 
 /* Skjul scrollbar i moderne nettlesere */
@@ -146,119 +164,129 @@ section.controls button:active {
 
 /* Instructions */
 #instructions {
-  background-color: var(--background-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
+  /* Stil for instruksjonsseksjonen */
+  background-color: var(--background-color); /* Bakgrunnsfarge */
+  border: 1px solid var(--border-color); /* Rammefarge */
+  border-radius: 8px; /* Runder hjørnene */
+  padding: 20px; /* Plass rundt innholdet */
+  margin-top: 20px; /* Plass over seksjonen */
 }
 
 #instructions h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 20px; /* Størrelse på overskriften */
+  margin-bottom: 10px; /* Avstand under overskriften */
 }
 
 #instructions ol {
-  margin-left: 20px;
-  padding-left: 10px;
+  margin-left: 20px; /* Indent for listeelementer */
+  padding-left: 10px; /* Ekstra plass for tydeligere struktur */
 }
 
 #instructions li {
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Avstand mellom listeelementer */
 }
 
 #instructions .tip {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: var(--tertiary-color);
-  border-left: 4px solid var(--hover-color);
-  border-radius: 4px;
+  /* Stil for tipsseksjonen */
+  margin-top: 20px; /* Plass over tipsen */
+  padding: 15px; /* Plass rundt innholdet */
+  background-color: var(--tertiary-color); /* Bakgrunnsfarge for tips */
+  border-left: 4px solid var(--hover-color); /* Markering med farge i venstre marg */
+  border-radius: 4px; /* Runder hjørnene */
 }
 
 #instructions pre {
-  background-color: var(--secondary-color);
-  padding: 10px;
-  border-radius: 4px;
-  font-family: 'Courier New', Courier, monospace;
-  overflow-x: auto;
+  /* Stil for pre-formaterte tekstblokker */
+  background-color: var(--secondary-color); /* Bakgrunnsfarge */
+  padding: 10px; /* Plass rundt teksten */
+  border-radius: 4px; /* Runder hjørnene */
+  font-family: 'Courier New', Courier, monospace; /* Monospace-skrift */
+  overflow-x: auto; /* Aktiverer horisontal scrolling */
 }
 
 /* Toggle-knapp (inspirert av en bryter) */
 #theme-toggle {
-  display: flex;
-  align-items: center;
-  margin: 10px;
+  /* Oppsett for dark mode-bryter */
+  display: flex; /* Bruker flexbox for layout */
+  align-items: center; /* Sentrerer vertikalt */
+  margin: 10px; /* Plass rundt bryteren */
 }
 
 #theme-label {
-  margin-left: 10px;
-  font-size: 16px;
+  margin-left: 10px; /* Avstand mellom bryter og tekst */
+  font-size: 16px; /* Størrelse på etiketten */
 }
 
 /* Stil for bryteren */
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
+  position: relative; /* For korrekt posisjonering av elementer */
+  display: inline-block; /* Bryteren skal vises inline */
+  width: 40px; /* Bredde på bryteren */
+  height: 20px; /* Høyde på bryteren */
 }
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+  opacity: 0; /* Skjuler det faktiske input-elementet */
+  width: 0; /* Ingen bredde */
+  height: 0; /* Ingen høyde */
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
+  /* Stil for selve bryteren */
+  position: absolute; /* Absolutt posisjonering innenfor containeren */
+  cursor: pointer; /* Markør endres til en peker */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
+  background-color: #ccc; /* Standard bakgrunnsfarge */
+  transition: 0.4s; /* Glatt overgang ved endringer */
+  border-radius: 34px; /* Runde hjørner */
 }
 
 .slider:before {
-  position: absolute;
-  content: '';
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
+  /* Stil for det bevegelige elementet */
+  position: absolute; /* Absolutt posisjonering */
+  content: ''; /* Innhold for pseudo-elementet */
+  height: 14px; /* Høyde på elementet */
+  width: 14px; /* Bredde på elementet */
+  left: 3px; /* Avstand fra venstre kant */
+  bottom: 3px; /* Avstand fra bunnkant */
+  background-color: white; /* Farge på det bevegelige elementet */
+  transition: 0.4s; /* Glatt overgang ved endringer */
+  border-radius: 50%; /* Runde hjørner for sirkulært utseende */
 }
 
 input:checked + .slider {
-  background-color: var(--primary-color);
+  /* Endring av stil når bryteren er aktivert */
+  background-color: var(--primary-color); /* Aktiv bakgrunnsfarge */
 }
 
 input:checked + .slider:before {
+  /* Flytt det bevegelige elementet ved aktivering */
   transform: translateX(20px);
 }
 
 /* Popup-melding */
 #copy-popup {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: var(--hover-color);
-  color: var(--text-color);
-  padding: 10px 20px;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  /* Stil for popup-meldingen som bekrefter kopiering */
+  position: fixed; /* Fiksert posisjonering */
+  bottom: 20px; /* Plassering nederst på skjermen */
+  right: 20px; /* Plassering til høyre på skjermen */
+  background-color: var(--hover-color); /* Bakgrunnsfarge */
+  color: var(--text-color); /* Tekstfarge */
+  padding: 10px 20px; /* Plass rundt teksten */
+  border-radius: 4px; /* Runder hjørnene */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Skyggeeffekt */
+  opacity: 0; /* Usynlig som standard */
+  visibility: hidden; /* Skjuler elementet */
+  transform: translateY(20px); /* Flytter det litt ned */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; /* Glatte overganger */
 }
 
 #copy-popup.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  /* Stil for popup-meldingen når den vises */
+  opacity: 1; /* Gjør den synlig */
+  visibility: visible; /* Gjør elementet synlig */
+  transform: translateY(0); /* Flytter tilbake til opprinnelig posisjon */
 }

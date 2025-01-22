@@ -1,66 +1,61 @@
-//Grid
+// Grid-element
 const grid = document.getElementById('grid');
 
 function generateGrid(year) {
   grid.innerHTML = ''; // Tøm eksisterende grid
 
-  const startDate = new Date(year, 0, 1); // 1. januar
-  const endDate = new Date(year, 11, 31); // 31. desember
+  const startDate = new Date(year, 0, 1); // 1. januar for valgt år
+  const endDate = new Date(year, 11, 31); // 31. desember for valgt år
   const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1; // Antall dager i året
-  const startDay = startDate.getDay(); // Ukedagen for 1. januar (0 = Søndag, 1 = Mandag, ...)
+  const startDay = startDate.getDay(); // Ukedagen for 1. januar (0 = søndag, 1 = mandag, ...)
 
-  // Lag grid (53 kolonner, 7 rader)
+  // Opprett grid med 53 kolonner og 7 rader
   for (let day = 0; day < 7; day++) {
-    // Iterer over dagene i uken
     for (let week = 0; week < 53; week++) {
-      // Iterer over ukene
-      const currentIndex = week * 7 + day - startDay; // Juster indeksen basert på startdagen
-      let currentDate = new Date(year, 0, currentIndex + 1); // Beregn dato basert på årets start
+      const currentIndex = week * 7 + day - startDay; // Beregn indeks basert på startdag
+      let currentDate = new Date(year, 0, currentIndex + 1); // Beregn dato fra start
 
-      // Sjekk om vi er innenfor årets dager
       if (currentDate >= startDate && currentDate <= endDate) {
         const cell = document.createElement('div');
-        cell.classList.add('cell');
+        cell.classList.add('cell'); // Legg til celle-klassen
 
-        // Legg til dato som attributt for senere bruk
-        let currentDate = new Date(year, 0, currentIndex + 1, 12);
-        cell.dataset.date = currentDate.toISOString().split('T')[0];
+        let currentDate = new Date(year, 0, currentIndex + 1, 12); // Sett dato til klokken 12
+        cell.dataset.date = currentDate.toISOString().split('T')[0]; // Lagre dato som data-attributt
 
-        // Legg til klikkhendelse for testing
+        // Klikk-hendelse for testing
         cell.addEventListener('click', () => {
           console.log(`Clicked date: ${cell.dataset.date}`);
         });
 
-        grid.appendChild(cell);
+        grid.appendChild(cell); // Legg cellen til gridet
       } else {
-        // Tom celle for uker utenfor årets dager
-        const emptyCell = document.createElement('div');
+        const emptyCell = document.createElement('div'); // Tom celle for dager utenfor året
         emptyCell.classList.add('empty');
         grid.appendChild(emptyCell);
       }
     }
   }
 
-  // Sett grid-layout basert på riktig rekkefølge
-  grid.style.gridTemplateRows = `repeat(7, 20px)`;
-  grid.style.gridTemplateColumns = `repeat(53, 20px)`;
+  grid.style.gridTemplateRows = `repeat(7, 20px)`; // Definer antall rader
+  grid.style.gridTemplateColumns = `repeat(53, 20px)`; // Definer antall kolonner
 }
 
+// Variabler for dra-og-slipp-interaksjon
 let isMouseDown = false;
 let isSelecting = null;
 
 grid.addEventListener('mousedown', (e) => {
   if (e.target.classList.contains('cell')) {
     isMouseDown = true;
-    isSelecting = !e.target.classList.contains('active');
-    e.target.classList.toggle('active', isSelecting); // Toggles den første cellen
+    isSelecting = !e.target.classList.contains('active'); // Toggle for aktiv status
+    e.target.classList.toggle('active', isSelecting);
   }
   e.preventDefault();
 });
 
 grid.addEventListener('mousemove', (e) => {
   if (isMouseDown && e.target.classList.contains('cell')) {
-    e.target.classList.toggle('active', isSelecting);
+    e.target.classList.toggle('active', isSelecting); // Fortsett aktivering/deaktivering
   }
 });
 
@@ -69,114 +64,102 @@ document.addEventListener('mouseup', () => {
   isSelecting = null;
 });
 
-generateGrid(2025); // Bytt ut året for testing
+// Generer grid for inneværende år
+const currentYear = new Date().getFullYear(); // Hent inneværende år
+generateGrid(currentYear);
 
-// Generer årvalgene dynamisk
+// Dynamisk generering av år i dropdown
 function populateYearSelector() {
   const yearSelector = document.getElementById('year-selector');
-  const currentYear = new Date().getFullYear(); // Hent inneværende år
   const startYear = 2006; // Startår for listen
-  const endYear = currentYear; // Legg til neste år
+  const endYear = new Date().getFullYear(); // Sluttår er inneværende år
 
-  // Tøm eksisterende valg
-  yearSelector.innerHTML = '';
+  yearSelector.innerHTML = ''; // Tøm eksisterende valg
 
-  // Generer årvalg
   for (let year = startYear; year <= endYear; year++) {
     const option = document.createElement('option');
     option.value = year;
     option.textContent = year;
-    if (year === currentYear) {
-      option.selected = true; // Sett inneværende år som standard
+    if (year === endYear) {
+      option.selected = true; // Marker inneværende år som standard
     }
     yearSelector.appendChild(option);
   }
 }
 
-// Initialiser årvelgeren
+// Initialiser årvelger
 populateYearSelector();
 
-// Legg til event listener for endring av år
+// Hendelse for å oppdatere grid ved år-endring
 document.getElementById('year-selector').addEventListener('change', (e) => {
   generateGrid(parseInt(e.target.value, 10)); // Generer grid for valgt år
 });
 
-//script generator
+// Generer script basert på aktive celler
 document.getElementById('generate-script').addEventListener('click', () => {
-  const cells = document.querySelectorAll('.cell'); // Hent alle celler i gridet
-  const year = 2025; // Endre til ønsket år (eller hent fra brukerinput hvis mulig)
-  const startDate = new Date(year, 0, 1); // 1. januar for valgt år
+  const cells = document.querySelectorAll('.cell');
+  const year = 2025; // Standardår for generering
+  const startDate = new Date(year, 0, 1);
   let script = '#!/bin/bash\n\n';
 
-  // Start et nytt git-repository i scriptet
-  script += 'mkdir github-contributions && cd github-contributions\n';
   script += 'git init\n\n';
 
   cells.forEach((cell) => {
     if (cell.classList.contains('active') && cell.dataset.date) {
-      // Beregn riktig dato basert på cellens plassering og år
       const date = new Date(cell.dataset.date);
-
-      // Lag commit-kommandolinje
       script += `GIT_AUTHOR_DATE="${date.toISOString()}" `;
       script += `GIT_COMMITTER_DATE="${date.toISOString()}" `;
       script += `git commit --allow-empty -m "Commit on ${date.toDateString()}"\n`;
     }
   });
 
-  // Legg til instruksjoner for å pushe til GitHub
   script += '\n# Push til GitHub\n';
   script += 'git branch -M main\n';
   script += 'git remote add origin <URL-til-repository>\n';
   script += 'git push -u origin main\n';
 
-  // Vis scriptet i tekstområdet
-  document.getElementById('script-output').value = script;
+  document.getElementById('script-output').value = script; // Vis script i tekstfelt
 });
 
-// Hent toggle og body
+// Tema-bytte funksjonalitet
 const themeCheckbox = document.getElementById('theme-checkbox');
 
-// Definer fargepaletter for hvert tema
 const themes = {
   light: {
-    '--background-color': '#FFFFFF', // gjort
-    '--text-color': '#1F2328', // gjort
-    '--primary-color': '#216E39', // gjort
-    '--secondary-color': '#EBEDF0', // gjort
+    '--background-color': '#FFFFFF',
+    '--text-color': '#1F2328',
+    '--primary-color': '#216E39',
+    '--secondary-color': '#EBEDF0',
     '--tertiary-color': '#EFF2F5',
-    '--border-color': '#D1D9E0', // gjort
-    '--hover-color': '#9BE9A8', // gjort
-    '--header-color': '#F6F8FA', //gjort
+    '--border-color': '#D1D9E0',
+    '--hover-color': '#9BE9A8',
+    '--header-color': '#F6F8FA',
   },
   dark: {
-    '--background-color': '#0D1117', // gjort
+    '--background-color': '#0D1117',
     '--text-color': '#ffffff',
     '--primary-color': '#46D353',
-    '--secondary-color': '#161B22', // gjort
+    '--secondary-color': '#161B22',
     '--tertiary-color': '#262b36',
-    '--border-color': '#3D444D', // gjort
+    '--border-color': '#3D444D',
     '--hover-color': '#216E39',
     '--header-color': '#010409',
   },
 };
 
-// Funksjon for å bytte tema
 function applyTheme(theme) {
-  const root = document.documentElement; // Hoved :root-element
+  const root = document.documentElement;
   const themeColors = themes[theme];
   for (const [key, value] of Object.entries(themeColors)) {
-    root.style.setProperty(key, value); // Oppdater CSS-variabelen
+    root.style.setProperty(key, value); // Oppdater CSS-variabler
   }
 }
 
-// Sett dark mode som standard
 document.addEventListener('DOMContentLoaded', () => {
-  themeCheckbox.checked = true; // Sett toggle på
-  applyTheme('dark'); // Bruk dark mode
+  themeCheckbox.checked = true; // Sett dark mode som standard
+  applyTheme('dark');
 });
 
-// Bytt tema ved toggle
 themeCheckbox.addEventListener('change', () => {
   if (themeCheckbox.checked) {
     applyTheme('dark');
@@ -185,20 +168,18 @@ themeCheckbox.addEventListener('change', () => {
   }
 });
 
+// Kopier script til utklippstavlen
 document.getElementById('copy-script').addEventListener('click', () => {
-  const scriptOutput = document.getElementById('script-output'); // Hent tekstområdet
-  const popup = document.getElementById('copy-popup'); // Hent popup-elementet
+  const scriptOutput = document.getElementById('script-output');
+  const popup = document.getElementById('copy-popup');
 
-  // Kopier tekst til utklippstavlen
   navigator.clipboard
     .writeText(scriptOutput.value)
     .then(() => {
-      // Vis popup-melding
-      popup.classList.add('show');
+      popup.classList.add('show'); // Vis bekreftelse
 
-      // Skjul popup etter 2 sekunder
       setTimeout(() => {
-        popup.classList.remove('show');
+        popup.classList.remove('show'); // Skjul popup etter 2 sekunder
       }, 2000);
     })
     .catch((err) => {

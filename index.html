@@ -1,42 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Angir dokumenttype som HTML5 -->
     <meta charset="UTF-8" />
+    <!-- Setter tegnsettet til UTF-8 for bred språkstøtte -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Gjør siden responsiv for ulike skjermstørrelser -->
     <title>GitHub Contribution Visualizer</title>
+    <!-- Tittelen som vises i nettleserfanen -->
     <link rel="stylesheet" href="styles.css" />
+    <!-- Kobler til eksternt CSS-stilark for styling -->
   </head>
   <body>
+    <!-- Header-seksjon som inneholder overskriften og en bryter for dark mode -->
     <header>
       <h1>GitHub Contribution Visualizer</h1>
-      <!--Darkmode toggle-->
+      <!-- Hovedoverskriften for applikasjonen -->
       <div id="theme-toggle">
+        <!-- Darkmode toggle switch -->
         <label class="switch">
           <input type="checkbox" id="theme-checkbox" checked />
+          <!-- Checkbox for å aktivere/deaktivere dark mode -->
           <span class="slider"></span>
+          <!-- Visuell representasjon av bryteren -->
         </label>
         <span id="theme-label">Dark Mode</span>
+        <!-- Tekstetikett for bryteren -->
       </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Hovedinnholdet i applikasjonen -->
     <main>
+      <!-- Kontrollseksjon for å velge år -->
       <section class="controls">
         <select id="year-selector"></select>
+        <!-- Dropdown-meny for å velge år -->
       </section>
+
+      <!-- Seksjon som inneholder gridet for design av mønster -->
       <section id="grid-container">
         <div id="grid"></div>
+        <!-- Container for gridet hvor brukeren klikker celler for å lage et mønster -->
       </section>
+
+      <!-- Seksjon som viser det genererte scriptet -->
       <section id="script-output-container">
         <textarea id="script-output" rows="10" cols="50" readonly></textarea>
+        <!-- Tekstboks for å vise det genererte scriptet -->
       </section>
+
+      <!-- Kontrollseksjon for knapper som genererer og kopierer scriptet -->
       <section class="controls">
         <button id="generate-script">Generer Script</button>
+        <!-- Knapp for å generere scriptet basert på gridet -->
         <button id="copy-script">Kopier Script</button>
+        <!-- Knapp for å kopiere scriptet til utklippstavlen -->
       </section>
+
+      <!-- Seksjon med bruksanvisning for applikasjonen -->
       <section id="instructions">
         <h2>Slik bruker du applikasjonen</h2>
         <ol>
+          <!-- Liste med steg-for-steg-instruksjoner for brukeren -->
           <li>
             <strong>Lag et repository på GitHub:</strong>
             <p>Gå til GitHub og opprett et nytt repository.</p>
@@ -71,13 +96,17 @@
           </li>
         </ol>
         <div class="tip">
+          <!-- Tipsseksjon for ekstra veiledning -->
           <h3>Tips:</h3>
           <p>Sørg for at e-postadressen i Git-konfigurasjonen din matcher den som er knyttet til din GitHub-konto:</p>
           <pre><code>git config --global user.email "din.email@eksempel.com"</code></pre>
         </div>
       </section>
+
+      <!-- Popup-melding for å bekrefte at scriptet er kopiert -->
       <div id="copy-popup">Kopiert til utklippstavlen!</div>
     </main>
   </body>
+  <!-- Kobler til ekstern JavaScript-fil for funksjonalitet -->
   <script src="script.js"></script>
 </html>
