@@ -47,43 +47,58 @@ function generateGrid(year) {
 }
 
 let isMouseDown = false;
-let isSelecting = true; // Sporer om vi aktiverer eller deaktiverer celler
+let isSelecting = null;
 
-// Når musen trykkes ned
 grid.addEventListener('mousedown', (e) => {
   if (e.target.classList.contains('cell')) {
     isMouseDown = true;
-    isSelecting = !e.target.classList.contains('active'); // Sjekk status på cellen
-    e.target.classList.toggle('active', isSelecting); // Endre status
+    isSelecting = !e.target.classList.contains('active');
+    e.target.classList.toggle('active', isSelecting); // Toggles den første cellen
   }
+  e.preventDefault();
 });
 
-// Når musen beveger seg over gridet
 grid.addEventListener('mousemove', (e) => {
   if (isMouseDown && e.target.classList.contains('cell')) {
-    if (e.target.classList.contains('active') !== isSelecting) {
-      e.target.classList.toggle('active', isSelecting);
-    }
+    e.target.classList.toggle('active', isSelecting);
   }
 });
 
-// Når musen slippes
 document.addEventListener('mouseup', () => {
   isMouseDown = false;
+  isSelecting = null;
 });
 
-// Støtter klikk uten dra
-grid.addEventListener('click', (e) => {
-  if (!isMouseDown && e.target.classList.contains('cell')) {
-    e.target.classList.toggle('active');
+generateGrid(2025); // Bytt ut året for testing
+
+// Generer årvalgene dynamisk
+function populateYearSelector() {
+  const yearSelector = document.getElementById('year-selector');
+  const currentYear = new Date().getFullYear(); // Hent inneværende år
+  const startYear = 2006; // Startår for listen
+  const endYear = currentYear; // Legg til neste år
+
+  // Tøm eksisterende valg
+  yearSelector.innerHTML = '';
+
+  // Generer årvalg
+  for (let year = startYear; year <= endYear; year++) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    if (year === currentYear) {
+      option.selected = true; // Sett inneværende år som standard
+    }
+    yearSelector.appendChild(option);
   }
-});
+}
 
-generateGrid(2023); // Bytt ut året for testing
+// Initialiser årvelgeren
+populateYearSelector();
 
-// Årvelger
+// Legg til event listener for endring av år
 document.getElementById('year-selector').addEventListener('change', (e) => {
-  generateGrid(parseInt(e.target.value, 10));
+  generateGrid(parseInt(e.target.value, 10)); // Generer grid for valgt år
 });
 
 //script generator
