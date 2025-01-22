@@ -1,94 +1,264 @@
-.empty {
-  background-color: transparent; /* Ingen bakgrunn for tomme celler */
-  pointer-events: none; /* Gjør dem ikke-klikkbare */
+:root {
+  --background-color: #0d1117;
+  --text-color: #ffffff;
+  --primary-color: #46d353;
+  --secondary-color: #161b22;
+  --tertiary-color: #262b36;
+  --border-color: #3d444d;
+  --hover-color: #216e39;
+  --header-color: #010409;
+}
+
+/* Kropp og layout */
+body {
+  font-family: Segoe UI, Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--header-color);
+  color: var(--text-color);
+}
+
+header h1 {
+  font-size: 24px;
+}
+
+main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Grid container */
+#grid-container {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
 }
 
 #grid {
   display: grid;
-  grid-template-rows: repeat(7, 15px);
+  grid-template-rows: repeat(7, 20px);
   gap: 2px;
-  margin: 20px auto;
   width: fit-content;
+  user-select: none;
+  padding: 10px;
+  transition: transform 0.3s ease; /* Smooth overgang for skalering */
+}
+/* Skalering for ulike skjermstørrelser */
+@media (max-width: 1200px) {
+  #grid {
+    transform: scale(0.8); /* Reduser størrelse til 90% */
+  }
 }
 
+@media (max-width: 992px) {
+  #grid {
+    transform: scale(0.6); /* Reduser størrelse til 80% */
+  }
+}
+
+@media (max-width: 768px) {
+  #grid {
+    transform: scale(0.5); /* Reduser størrelse til 70% */
+  }
+}
+
+/* Cell styles */
 .cell {
-  width: 15px;
-  height: 15px;
-  background-color: #ebedf0; /* Grå for ingen commit */
-  border-radius: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--secondary-color);
+  border-radius: 3px;
   cursor: pointer;
 }
 
 .cell.active {
-  background-color: #4caf50; /* Grønn for commit */
-}
-
-#grid {
-  user-select: none; /* Forhindrer tekstmarkering */
+  background-color: var(--primary-color);
 }
 
 .cell:hover {
-  background-color: #d4e157; /* Lys grønn som hover-effekt */
+  background-color: var(--hover-color);
 }
 
+.empty {
+  background-color: transparent;
+  pointer-events: none;
+}
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center; /* Sentrer knappene */
+  gap: 10px; /* Avstand mellom knappene */
+  margin: 20px 0;
+}
+section.controls button,
+#year-selector {
+  padding: 10px 20px; /* Økt bredde på knappene */
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--tertiary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth overgang */
+}
+
+section.controls button:hover {
+  background-color: var(--hover-color);
+}
+
+section.controls button:active {
+  background-color: var(--primary-color);
+}
+
+/* Script output */
+#script-output {
+  width: 100%;
+  max-height: 200px; /* Begrens høyden, så scrolling aktiveres */
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-y: scroll; /* Aktiver vertikal scrolling */
+}
+
+/* Skjul scrollbar i moderne nettlesere */
+#script-output::-webkit-scrollbar {
+  width: 0; /* Skjul scrollbar */
+  height: 0; /* For horisontal scrollbar */
+}
+
+#script-output {
+  scrollbar-width: none; /* Skjul scrollbar i Firefox */
+  -ms-overflow-style: none; /* Skjul scrollbar i IE og eldre Edge */
+}
+
+/* Instructions */
 #instructions {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background-color: #f9f9f9;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 #instructions h2 {
-  font-size: 24px;
-  margin-bottom: 16px;
-  color: #333;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 #instructions ol {
-  padding-left: 20px;
+  margin-left: 20px;
+  padding-left: 10px;
 }
 
 #instructions li {
-  margin-bottom: 20px;
-}
-
-#instructions strong {
-  color: #000;
-}
-
-#instructions p {
-  margin: 5px 0;
-  line-height: 1.6;
-}
-
-#instructions pre {
-  background-color: #eee;
-  padding: 10px;
-  border-radius: 4px;
-  overflow-x: auto;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-#instructions pre code {
-  color: #005cc5;
+  margin-bottom: 10px;
 }
 
 #instructions .tip {
   margin-top: 20px;
   padding: 15px;
-  background-color: #e7f3ff;
-  border: 1px solid #b3d7ff;
-  border-radius: 8px;
+  background-color: var(--tertiary-color);
+  border-left: 4px solid var(--hover-color);
+  border-radius: 4px;
 }
 
-#instructions .tip h3 {
-  margin-top: 0;
-  color: #00529b;
+#instructions pre {
+  background-color: var(--secondary-color);
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  overflow-x: auto;
 }
 
-#instructions .tip pre {
-  background-color: #d8ecff;
+/* Toggle-knapp (inspirert av en bryter) */
+#theme-toggle {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+#theme-label {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+/* Stil for bryteren */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Popup-melding */
+#copy-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--hover-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+#copy-popup.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }

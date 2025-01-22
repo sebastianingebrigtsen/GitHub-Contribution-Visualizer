@@ -42,8 +42,8 @@ function generateGrid(year) {
   }
 
   // Sett grid-layout basert på riktig rekkefølge
-  grid.style.gridTemplateRows = `repeat(7, 15px)`;
-  grid.style.gridTemplateColumns = `repeat(53, 15px)`;
+  grid.style.gridTemplateRows = `repeat(7, 20px)`;
+  grid.style.gridTemplateColumns = `repeat(53, 20px)`;
 }
 
 let isMouseDown = false;
@@ -132,4 +132,76 @@ document.getElementById('generate-script').addEventListener('click', () => {
 
   // Vis scriptet i tekstområdet
   document.getElementById('script-output').value = script;
+});
+
+// Hent toggle og body
+const themeCheckbox = document.getElementById('theme-checkbox');
+
+// Definer fargepaletter for hvert tema
+const themes = {
+  light: {
+    '--background-color': '#FFFFFF', // gjort
+    '--text-color': '#1F2328', // gjort
+    '--primary-color': '#216E39', // gjort
+    '--secondary-color': '#EBEDF0', // gjort
+    '--tertiary-color': '#EFF2F5',
+    '--border-color': '#D1D9E0', // gjort
+    '--hover-color': '#9BE9A8', // gjort
+    '--header-color': '#F6F8FA', //gjort
+  },
+  dark: {
+    '--background-color': '#0D1117', // gjort
+    '--text-color': '#ffffff',
+    '--primary-color': '#46D353',
+    '--secondary-color': '#161B22', // gjort
+    '--tertiary-color': '#262b36',
+    '--border-color': '#3D444D', // gjort
+    '--hover-color': '#216E39',
+    '--header-color': '#010409',
+  },
+};
+
+// Funksjon for å bytte tema
+function applyTheme(theme) {
+  const root = document.documentElement; // Hoved :root-element
+  const themeColors = themes[theme];
+  for (const [key, value] of Object.entries(themeColors)) {
+    root.style.setProperty(key, value); // Oppdater CSS-variabelen
+  }
+}
+
+// Sett dark mode som standard
+document.addEventListener('DOMContentLoaded', () => {
+  themeCheckbox.checked = true; // Sett toggle på
+  applyTheme('dark'); // Bruk dark mode
+});
+
+// Bytt tema ved toggle
+themeCheckbox.addEventListener('change', () => {
+  if (themeCheckbox.checked) {
+    applyTheme('dark');
+  } else {
+    applyTheme('light');
+  }
+});
+
+document.getElementById('copy-script').addEventListener('click', () => {
+  const scriptOutput = document.getElementById('script-output'); // Hent tekstområdet
+  const popup = document.getElementById('copy-popup'); // Hent popup-elementet
+
+  // Kopier tekst til utklippstavlen
+  navigator.clipboard
+    .writeText(scriptOutput.value)
+    .then(() => {
+      // Vis popup-melding
+      popup.classList.add('show');
+
+      // Skjul popup etter 2 sekunder
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 2000);
+    })
+    .catch((err) => {
+      console.error('Kunne ikke kopiere til utklippstavlen:', err);
+    });
 });

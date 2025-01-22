@@ -7,13 +7,33 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <body>
+    <header>
       <h1>GitHub Contribution Visualizer</h1>
-      <div id="grid"></div>
-      <button id="generate-script">Generer Script</button>
-      <textarea id="script-output" rows="10" cols="50" readonly></textarea>
-      <select id="year-selector"></select>
+      <!--Darkmode toggle-->
+      <div id="theme-toggle">
+        <label class="switch">
+          <input type="checkbox" id="theme-checkbox" checked />
+          <span class="slider"></span>
+        </label>
+        <span id="theme-label">Dark Mode</span>
+      </div>
+    </header>
 
+    <!-- Main Content -->
+    <main>
+      <section class="controls">
+        <select id="year-selector"></select>
+      </section>
+      <section id="grid-container">
+        <div id="grid"></div>
+      </section>
+      <section id="script-output-container">
+        <textarea id="script-output" rows="10" cols="50" readonly></textarea>
+      </section>
+      <section class="controls">
+        <button id="generate-script">Generer Script</button>
+        <button id="copy-script">Kopier Script</button>
+      </section>
       <section id="instructions">
         <h2>Slik bruker du applikasjonen</h2>
         <ol>
@@ -56,8 +76,8 @@
           <pre><code>git config --global user.email "din.email@eksempel.com"</code></pre>
         </div>
       </section>
-
-      <script src="script.js"></script>
-    </body>
+      <div id="copy-popup">Kopiert til utklippstavlen!</div>
+    </main>
   </body>
+  <script src="script.js"></script>
 </html>
