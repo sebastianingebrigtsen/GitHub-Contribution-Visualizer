@@ -12,6 +12,55 @@
       <div id="grid"></div>
       <button id="generate-script">Generer Script</button>
       <textarea id="script-output" rows="10" cols="50" readonly></textarea>
+      <select id="year-selector">
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+      </select>
+      <section id="instructions">
+        <h2>Slik bruker du applikasjonen</h2>
+        <ol>
+          <li>
+            <strong>Lag et repository på GitHub:</strong>
+            <p>Gå til GitHub og opprett et nytt repository.</p>
+          </li>
+          <li>
+            <strong>Generer scriptet:</strong>
+            <p>Design mønsteret ditt ved å klikke og markere cellene i gridet. Klikk på <em>Generer Script</em> for å få koden.</p>
+          </li>
+          <li>
+            <strong>Opprett en <code>.sh</code>-fil:</strong>
+            <p>Lag en ny fil på maskinen din, for eksempel <code>contributions.sh</code>. Lim inn det genererte scriptet i denne filen.</p>
+          </li>
+          <li>
+            <strong>Endre repository-URL:</strong>
+            <p>Finn linjen i scriptet som sier:</p>
+            <pre><code>git remote add origin &lt;URL-til-repository&gt;</code></pre>
+            <p>Bytt ut <code>&lt;URL-til-repository&gt;</code> med URL-en til ditt GitHub-repository.</p>
+          </li>
+          <li>
+            <strong>Gjør scriptet kjørbart:</strong>
+            <p>Åpne terminalen, naviger til mappen der scriptet ligger, og kjør:</p>
+            <pre><code>chmod +x contributions.sh</code></pre>
+          </li>
+          <li>
+            <strong>Kjør scriptet:</strong>
+            <p>Kjør scriptet med følgende kommando:</p>
+            <pre><code>./contributions.sh</code></pre>
+          </li>
+          <li>
+            <strong>Sjekk bidragsgrafen på GitHub:</strong>
+            <p>Gå til profilsiden din på GitHub for å se ditt tilpassede mønster.</p>
+          </li>
+        </ol>
+        <div class="tip">
+          <h3>Tips:</h3>
+          <p>Sørg for at e-postadressen i Git-konfigurasjonen din matcher den som er knyttet til din GitHub-konto:</p>
+          <pre><code>git config --global user.email "din.email@eksempel.com"</code></pre>
+        </div>
+      </section>
 
       <script src="script.js"></script>
     </body>

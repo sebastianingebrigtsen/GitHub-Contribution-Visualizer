@@ -26,3 +26,69 @@
 #grid {
   user-select: none; /* Forhindrer tekstmarkering */
 }
+
+.cell:hover {
+  background-color: #d4e157; /* Lys grønn som hover-effekt */
+}
+
+#instructions {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+#instructions h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+#instructions ol {
+  padding-left: 20px;
+}
+
+#instructions li {
+  margin-bottom: 20px;
+}
+
+#instructions strong {
+  color: #000;
+}
+
+#instructions p {
+  margin: 5px 0;
+  line-height: 1.6;
+}
+
+#instructions pre {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#instructions pre code {
+  color: #005cc5;
+}
+
+#instructions .tip {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e7f3ff;
+  border: 1px solid #b3d7ff;
+  border-radius: 8px;
+}
+
+#instructions .tip h3 {
+  margin-top: 0;
+  color: #00529b;
+}
+
+#instructions .tip pre {
+  background-color: #d8ecff;
+}
